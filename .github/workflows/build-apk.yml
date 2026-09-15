@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          package-manager-cache: false   # ← this fixes the lock-file error
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
