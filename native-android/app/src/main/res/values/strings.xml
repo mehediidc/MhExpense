@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MhExpense</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="this_month">This Month</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="no_transactions">No transactions yet</string>
+    <string name="add_transaction">Add Entry</string>
+    <string name="save">Save</string>
+    <string name="amount">Amount</string>
+    <string name="category">Category</string>
+    <string name="note">Note</string>
+    <string name="date">Date</string>
+    <string name="type">Type</string>
+    <string name="income_label">Income</string>
+    <string name="expense_label">Expense</string>
+    <string name="delete">Delete</string>
+    <string-array name="transaction_types">
+        <item>Income</item>
+        <item>Expense</item>
+    </string-array>
+    <string-array name="default_categories">
+        <item>Salary</item>
+        <item>Freelance</item>
+        <item>Food</item>
+        <item>Transport</item>
+        <item>Shopping</item>
+        <item>Rent</item>
+        <item>Utilities</item>
+        <item>Health</item>
+        <item>Education</item>
+        <item>Other</item>
+    </string-array>
+</resources>
