@@ -1,5 +1,6 @@
 package com.mhdigital.mhexpensenative
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -52,13 +53,17 @@ class ExpenseDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
     fun addTransaction(transaction: Transaction): Long {
         val db = writableDatabase
-        return db.insert(TABLE_NAME, null, ContentValues().apply {
-            put(COL_TYPE, transaction.type)
-            put(COL_CATEGORY, transaction.category)
-            put(COL_AMOUNT, transaction.amount)
-            put(COL_NOTE, transaction.note)
-            put(COL_DATE, transaction.date)
-        })
+        return db.insert(
+            TABLE_NAME,
+            null,
+            ContentValues().apply {
+                put(COL_TYPE, transaction.type)
+                put(COL_CATEGORY, transaction.category)
+                put(COL_AMOUNT, transaction.amount)
+                put(COL_NOTE, transaction.note)
+                put(COL_DATE, transaction.date)
+            }
+        )
     }
 
     fun getTransactions(): List<Transaction> {
