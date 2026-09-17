@@ -1,4 +1,4 @@
-name: Build MyExpenses APK
+name: Build MyExpenses Cordova APK
 
 on:
   push:
@@ -7,16 +7,18 @@ on:
 
 jobs:
   build:
-    name: Build Debug APK
+    name: Build Cordova Debug APK
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: native-android
 
     steps:
       - name: Checkout project
         uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
 
       - name: Set up Java 17
         uses: actions/setup-java@v5
@@ -29,18 +31,23 @@ jobs:
 
       - name: Install Android SDK packages
         run: |
-          sdkmanager "platform-tools"
-          sdkmanager "platforms;android-35"
-          sdkmanager "build-tools;35.0.0"
+          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-      - name: Make Gradle executable
-        run: chmod +x gradlew
+      - name: Install npm dependencies
+        run: npm install
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon
+      - name: Add Cordova Android platform
+        run: npx cordova platform add android@13
+
+      - name: Add local Cordova plugin
+        run: npx cordova plugin add ./plugin
+
+      - name: Build Cordova debug APK
+        run: npm run build:debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: MyExpenses-debug-apk
-          path: native-android/app/build/outputs/apk/debug/app-debug.apk
+          name: MyExpenses-cordova-debug-apk
+          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
