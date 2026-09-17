@@ -30,7 +30,9 @@
       "android"
     ],
     "plugins": {
-      "myexpenses-native": {}
+      "myexpenses-native": {
+        "source": "./plugin"
+      }
     }
   }
 }
