@@ -2,13 +2,17 @@ name: Build MyExpenses APK
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
     name: Build Debug APK
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: native-android
 
     steps:
       - name: Checkout project
@@ -21,7 +25,13 @@ jobs:
           java-version: '17'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v4
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: |
+          sdkmanager "platform-tools"
+          sdkmanager "platforms;android-35"
+          sdkmanager "build-tools;35.0.0"
 
       - name: Make Gradle executable
         run: chmod +x gradlew
@@ -33,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MyExpenses-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: native-android/app/build/outputs/apk/debug/app-debug.apk
